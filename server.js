@@ -22,7 +22,7 @@ app.use(
         {
             stream:logFile,
             skip:(req,res)=>{
-                return req.path === "/api/v1/on-covid-19/logs";
+                return req.path !== "/api/v1/on-covid-19" || "/api/v1/on-covid-19/json" || "/api/v1/on-covid-19/xml";
             }
         }
     )
