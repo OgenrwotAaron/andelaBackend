@@ -12,7 +12,7 @@
     "url": "git+https://github.com/OgenrwotAaron/andelaBackend.git"
   },
   "engines": {
-    "node":"v12.16.2"
+    "node":"12.16.2"
   },
   "author": "Aaron Ogenrwot",
   "license": "ISC",
