@@ -22,19 +22,19 @@ app.use(
         {
             stream:logFile,
             skip:(req,res)=>{
-                return req.path !== "/api/v1/on-covid-19" || "/api/v1/on-covid-19/json" || "/api/v1/on-covid-19/xml";
+                return res.statusCode != 201 ;
             }
         }
     )
 )
 
 app.post("/api/v1/on-covid-19",estimator,(req,res)=>{
-    res.status(200).json(res.body);
+    res.status(201).json(res.body);
 })
 
 app.post("/api/v1/on-covid-19/:type",estimator,(req,res)=>{
     if(req.params.type === "json"){
-        res.status(200).json(res.body);
+        res.status(201).json(res.body);
     }else if(req.params.type === "xml"){
         const { data, impact, severeImpact }=res.body;
 
@@ -81,7 +81,7 @@ app.post("/api/v1/on-covid-19/:type",estimator,(req,res)=>{
         //set the content type to xml
         res.type('application/xml');
         //send an xml data
-        res.status(200).send(xml(dataToSubmit,{declaration:true}));
+        res.status(201).send(xml(dataToSubmit,{declaration:true}));
     }
 })
 
@@ -93,7 +93,7 @@ app.get('/api/v1/on-covid-19/logs',(req,res)=>{
 })
 
 //Block access to any undefined endpoint
-app.all('*',(req,res)=>{
+app.get('*',(req,res)=>{
     res.status(405).send("This endpoint is off-limits")
 })
 
