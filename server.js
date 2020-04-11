@@ -12,6 +12,7 @@ const estimator = require('./middlewares/estimator');
 app.use(bodyParser.json())
 
 //Create log file
+fs.mkdirSync(path.join(__dirname,'./logs/'))
 const logFile = fs.createWriteStream(path.join(__dirname,'./logs/log.txt'),{flags:'a'})
 
 //Morgan for logging requests to the server
