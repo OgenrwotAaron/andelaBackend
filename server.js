@@ -20,10 +20,7 @@ app.use(
     morgan(
         ':method\t\t:url\t\t:status\t\t:response-time ms',
         {
-            stream:logFile,
-            skip:(req,res)=>{
-                return res.statusCode != 201 ;
-            }
+            stream:logFile
         }
     )
 )
