@@ -18,7 +18,18 @@ const logFile = fs.createWriteStream(path.join(__dirname,'./logs/log.txt'),{flag
 //Morgan for logging requests to the server
 app.use(
     morgan(
-        ':method\t\t:url\t\t:status\t\t:response-time ms',
+        //':method\t\t:url\t\t:status\t\t:response-time\bms',
+        (tokens,req,res)=>{
+            return [
+                tokens.method(req,res),
+                tokens.url(req,res),
+                tokens.status(req,res),
+                parseInt(tokens['response-time'](req,res).toString()) < 10 ? 
+                '0'+parseInt(tokens['response-time'](req,res).toString())+'ms'
+                :
+                parseInt(tokens['response-time'](req,res).toString())+'ms'
+            ].join('\t\t')
+        },
         {
             stream:logFile
         }
